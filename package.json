@@ -20,14 +20,15 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
     "mongoose": "^6.4.4",
-    "request": "^2.88.2"
-  },
-  "devDependencies": {
+    "request": "^2.88.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "node": "^17.5.0",
     "nodemon": "^2.0.15",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.3.0"
+  },
+  "devDependencies": {
+
   }
 }
