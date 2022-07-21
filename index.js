@@ -36,7 +36,8 @@ app.use(function (req, res, next) {
 app.use('/', routes_path);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer:true }))
 
-app.listen(5001, function(){
+var port = process.env.PORT || 5001
+app.listen(port, function(){
     console.log("start! express server on port 5001")
 })
 
