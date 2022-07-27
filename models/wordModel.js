@@ -31,6 +31,12 @@ exports.getRawData = async function (){
     return rawData;
 }
 
+exports.getRawDataByKeyword = async function (keyword){
+    let sql = `SELECT * FROM TBL_RAW_DATA WHERE ANALYSYS_YN = 'N' AND CODE LIKE '%${keyword}%'`;
+    let [rawData, fields] = await db.query(sql);
+    return rawData;
+}
+
 exports.getRawDataById = async function (id){
     let sql = `SELECT * FROM TBL_RAW_DATA WHERE ID = ${id}`;
     let [rawData, fields] = await db.query(sql);

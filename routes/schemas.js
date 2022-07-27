@@ -27,4 +27,12 @@
 *        type: string
 *      password:
 *        type: string
+* 
+* @swagger
+* definitions:
+*  getRawDataByKeyword:
+*    type: object
+*    properties:
+*      username:
+*        keyword: string
 */

@@ -215,8 +215,6 @@ const authController = require("../controllers/authController")
      *        type: integer
      */
      router.post("/api/insertWord",               wordController.insertWord)
-
-
     /**
      * @swagger
      *  /api/deleteWord:
@@ -335,6 +333,27 @@ const authController = require("../controllers/authController")
      *        description:  네이버 뉴스 RAW DB 조회
      */
      router.get("/api/getRawData",        wordController.getRawData)
+
+    /**
+     * @swagger
+     *  /api/getRawDataByKeyword:
+     *    get:
+     *      tags:
+     *      - word
+     *      description: 네이버 뉴스 RAW DB 조회
+     *      parameters:
+     *      - in: body
+     *        name: Request
+     *        description: 모든 값을 알맞게 넣어주세요.
+     *        schema:
+     *          $ref: '#/definitions/getRawDataByKeyword'
+     *      produces:
+     *      - application/json
+     *      responses:
+     *       200:
+     *        description:  네이버 뉴스 RAW DB 조회
+     */
+     router.post("/api/getRawDataByKeyword",        wordController.getRawDataByKeyword)
 
     /**
      * @swagger

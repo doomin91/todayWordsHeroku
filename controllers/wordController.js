@@ -115,6 +115,17 @@ const getRawData = async function (req, res) {
     }
 }
 
+const getRawDataByKeyword = async function (req, res) {
+    let keyword = req.body.keyword
+    try{
+        let result = await wordModel.getRawDataByKeyword(keyword)
+        res.status(200).json(result)
+    } catch (e) {
+        console.log(e)
+        res.json(e)
+    }
+}
+
 const getRankingData = async function (req, res) {
     /*
         정치        100
@@ -260,6 +271,7 @@ module.exports = {
     getWords,
     insertWord,
     deleteWord,
+    getRawDataByKeyword,
     // getNewsData,
     getRawData,
     getRankingData,
