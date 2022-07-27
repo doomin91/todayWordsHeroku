@@ -33,6 +33,6 @@
 *  getRawDataByKeyword:
 *    type: object
 *    properties:
-*      username:
-*        keyword: string
+*      keyword:
+*        type: string
 */
