@@ -337,7 +337,7 @@ const authController = require("../controllers/authController")
     /**
      * @swagger
      *  /api/getRawDataByKeyword:
-     *    get:
+     *    post:
      *      tags:
      *      - word
      *      description: 네이버 뉴스 RAW DB 조회
