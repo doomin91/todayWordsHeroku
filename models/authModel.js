@@ -7,7 +7,7 @@ exports.getWords = async function(){
 }
 
 exports.insertWord = async function(data){
-    let sql = `INSERT INTO TBL_WORD_LIST (WL_CATE, WL_NAME, WL_RELATED_WORDS, WL_RELATED_NEWS, WL_URL, WL_WORD_RANK, WL_IMPOTANCE) VALUES ('${data.cate}', '${data.name}', '${data.relatedWords}', '${data.relatedNews}','${data.url}', ${data.wordRank}, ${data.impotance})`
+    let sql = `INSERT INTO TBL_WORD_LIST (WL_CATE, WL_NAME, WL_RELATED_WORDS, WL_RELATED_NEWS, WL_URL, WL_WORD_RANK, WL_IMPORTANCE) VALUES ('${data.cate}', '${data.name}', '${data.relatedWords}', '${data.relatedNews}','${data.url}', ${data.wordRank}, ${data.importance})`
 
     let [result, fields] = await db.execute(sql);
     return result
