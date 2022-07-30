@@ -19,7 +19,7 @@ const getWords = async function (req, res) {
 
 const insertWord = async function (req, res) {
     try {
-        console.log(req.body.relatedNews)
+        console.log(req.body)
         let data = {
             cate: req.body.cate,
             name: req.body.name,
