@@ -207,7 +207,7 @@ const authController = require("../controllers/authController")
      *        items: 
      *          type: object
      *          properties:
-     *            url
+     *            url:
      *              type: string
      *            title: 
      *              type: string
