@@ -205,7 +205,12 @@ const authController = require("../controllers/authController")
      *      relatedNews:
      *        type: array
      *        items: 
-     *          type: string
+     *          type: object
+     *          properties:
+     *            url
+     *              type: string
+     *            title: 
+     *              type: string
      *      importance:
      *        type: integer
      */

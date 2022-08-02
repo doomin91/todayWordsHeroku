@@ -24,7 +24,7 @@ const insertWord = async function (req, res) {
             cate: req.body.cate,
             name: req.body.name,
             relatedWords: JSON.stringify(req.body.relatedWords),
-            relatedNews: req.body.relatedNews,
+            relatedNews: JSON.stringify(req.body.relatedNews),
             wordRank: req.body.wordRank,
             importance: req.body.importance,
         }
