@@ -4,6 +4,8 @@ const routes_path = require('./routes/index.js')
 const cors = require('cors');
 const mongoose   = require('mongoose');
 const { swaggerUi, specs } = require('./src/swagger.js')
+const schedule = require("./lib/schedule.js");
+
 require("dotenv").config();
     
 app.use(cors())

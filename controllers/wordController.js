@@ -45,65 +45,7 @@ const deleteWord = async function (req, res) {
         console.log(e)
         res.json(e)
     }
-
 }
-
-// const getNewsData = async function(req, res){
-//     /*
-//         정치        100
-//         경제        101
-//         사회        102
-//         생활/문화   103
-//         IT/과학     104
-//         세계        105
-//     */
-//     try{
-//         let newsCode = req.body.code
-//         let mainUrl = `https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=${newsCode}`
-//         // let content = ""
-//         const main = await getHtml(mainUrl)
-//         .then(data => {
-//             var ulList = []
-//             const $ = cheerio.load(data)
-//             const $bodyList = $("div.cluster").children("div.cluster_group")
-//             $bodyList.each(function(idx, val) {
-//                 let url = $(this).find("div.cluster_text a").attr("href")
-//                 let split = url.split('/')
-//                 let id = split[split.length - 1].split('?')[0]
-//                 ulList[idx] = {
-//                     "id": id,
-//                     "code": newsCode,
-//                     "title": $(this).find("div.cluster_text a").text(),
-//                     "url" : url,
-//                     "content": ""
-//                 }
-//             })
-//             return ulList
-//         })
-
-//         const content = await main.reduce(async (prev, current, index, array) =>{
-//             const result = await prev.then()        
-//             const data = await getHtml(current.url).then(async (data) => {
-//                 const $ = cheerio.load(data)
-//                 const $content = $("div._article_content").text()
-//                 const $regDate  = $("span._ARTICLE_DATE_TIME").attr("data-date-time")
-//                 Date()
-//                 const $modDate  = $("span._ARTICLE_MODIFY_DATE_TIME").attr("data-date-time")
-//                 array[index]["content"] = $content
-//                 array[index]["regDate"] = $regDate
-//                 array[index]["modDate"] = $modDate
-//                 check = await wordModel.getRawDataById(array[index]['id'])
-//                 if(check == ""){
-//                     await wordModel.insertRawData(array[index])
-//                 }   
-//             })
-//         }, Promise.resolve([]))
-//         res.status(200).json(main)
-//     } catch(e) {
-//         console.log(e)
-//         res.json(e)
-//     }
-// }
 
 const getRawData = async function (req, res) {
     try{
@@ -127,14 +69,16 @@ const getRawDataByKeyword = async function (req, res) {
 }
 
 const getRankingData = async function (req, res) {
-    /*
-        정치        100
-        경제        101
-        사회        102
-        생활/문화   103
-        IT/과학     104
-        세계        105
-    */
+        try{ 
+            crollingNewsFromNaverNews()
+            res.status(200).json("success")
+        } catch(e) {
+            console.log(e)
+            res.status(201).json(e)
+        }
+}
+
+const crollingNewsFromNaverNews = async function (){
         try{
             let mainUrl = `https://news.naver.com/main/ranking/popularDay.naver`
             // let content = ""
@@ -165,15 +109,6 @@ const getRankingData = async function (req, res) {
                             ulList.push(data)
                         }
                     })
-                    
-
-                    // ulList[idx] = {
-                    //     "id": id,
-                    //     "code": newsCode,
-                    //     "title": $(this).find("div.cluster_text a").text(),
-                    //     "url" : url,
-                    //     "content": ""
-                    // }
                 })
 
                 return ulList
@@ -195,11 +130,11 @@ const getRankingData = async function (req, res) {
                     if(check == "") await wordModel.insertRawData(array[index])
                 })
             }, Promise.resolve([]))
-            res.status(200).json("success")
-        } catch(e) {
+            return content
+        } catch (e){
             console.log(e)
-            res.json(e)
         }
+
 }
 
 const updateRawData = async function (req, res) {
@@ -212,39 +147,6 @@ const updateRawData = async function (req, res) {
         res.json(e)
     }
 }
-
-// const getAllNewsInfo = async function (req, res) {
-//     try {
-//         let mainUrl = "https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=100"
-//         // let content = ""
-//         const main = await getHtml(mainUrl)
-//         .then(data => {
-//             var ulList = []
-//             const $ = cheerio.load(data)
-//             const $bodyList = $("div.cluster").children("div.cluster_group")
-//             $bodyList.each(function(idx, val) {
-//                 ulList[idx] = {
-//                     "title": $(this).find("div.cluster_text a").text(),
-//                     "url" : $(this).find("div.cluster_text a").attr("href")
-//                 }
-//         })
-//         return ulList
-//         })
-//         const content = await main.reduce(async (prev, current, index, array) =>{
-//             const result = await prev.then()        
-//             const data = await getHtml(current.url).then(data => {
-//                 const $ = cheerio.load(data)
-//                 const $content = $("div._article_content").text()
-//                 array[index]["content"] = $content
-//                 return $content
-//             })
-//         }, Promise.resolve([]))
-        
-//         res.status(200).json(main)
-//         } catch (e) {
-//         res.json(e)
-//     }
-// }
 
 const getHtml = (url) => {
     try {
@@ -272,6 +174,7 @@ module.exports = {
     insertWord,
     deleteWord,
     getRawDataByKeyword,
+    crollingNewsFromNaverNews,
     // getNewsData,
     getRawData,
     getRankingData,

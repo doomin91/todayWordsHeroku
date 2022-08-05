@@ -2,8 +2,10 @@
 const express = require("express");
 const router = express.Router();
 
-const wordController = require("../controllers/wordController")
-const authController = require("../controllers/authController")
+const wordController    = require("../controllers/wordController")
+const authController    = require("../controllers/authController")
+const replyController   = require("../controllers/replyController")
+const rankController    = require("../controllers/rankController")
 
     /**
      * @swagger
@@ -382,9 +384,126 @@ const authController = require("../controllers/authController")
      *      id:
      *        type: integer
      */
-     router.post("/api/updateRawData",        wordController.updateRawData)
+    router.post("/api/updateRawData",          wordController.updateRawData)
+
+    /**
+     * @swagger
+     *  /api/getReply/{word}:
+     *    get:
+     *      tags:
+     *      - reply
+     *      description: 
+     *      parameters:
+     *      - in: path
+     *        name: word
+     *        required: true
+     *        schema:
+     *          type: string
+     *          format: date
+     *          description: 시작 날짜
+     *      produces:
+     *      - application/json
+     *      responses:
+     *       200:
+     *        description: 모든 토픽 조회
+     */
+    router.get("/api/getReply/:word",                    replyController.getReply)
+
+    /**
+     * @swagger
+     *  /api/insertReply:
+     *    post:
+     *      tags:
+     *      - reply
+     *      description: 
+         *      parameters:
+     *      - in: body
+     *        name: Request
+     *        description: 모든 값을 알맞게 넣어주세요.
+     *        schema:
+     *          $ref: '#/definitions/insertReply'
+     *      produces:
+     *      - application/json
+     *      responses:
+     *       200:
+     *        description: 생성이 완료되었습니다.
+     * definitions:
+     *  insertReply:
+     *    type: object
+     *    required:
+     *     - keyword
+     *     - parentReplySeq
+     *     - comment
+     *     - nickname
+     *     - password
+     *    properties:
+     *      keyword:
+     *        type: string
+     *      parentReplySeq:
+     *        type: integer
+     *      comment:
+     *        type: string
+     *      nickname:
+     *        type: string
+     *      password:
+     *        type: string
+     */
+    
+    router.post("/api/insertReply",                 replyController.insertReply)
+
+    /**
+     * @swagger
+     *  /api/deleteReply:
+     *    post:
+     *      tags:
+     *      - reply
+     *      description: 
+     *      produces:
+     *      - application/json
+     *      responses:
+     *       200:
+     *        description:
+     */
+    router.post("/api/deleteReply",                 replyController.deleteReply)
+
+    /**
+     * @swagger
+     *  /api/updateReply:
+     *    post:
+     *      tags:
+     *      - reply
+     *      description: 
+     *      produces:
+     *      - application/json
+     *      responses:
+     *       200:
+     *        description:
+     */
+    router.post("/api/updateReply",                 replyController.updateReply)
 
 
+    /**
+     * @swagger
+     *  /api/getRank/{word}:
+     *    get:
+     *      tags:
+     *      - rank
+     *      description: 
+     *      parameters:
+     *      - in: path
+     *        name: word
+     *        required: true
+     *        schema:
+     *          type: string
+     *          format: date
+     *          description: 시작 날짜
+     *      produces:
+     *      - application/json
+     *      responses:
+     *       200:
+     *        description: 모든 토픽 조회
+     */
+         router.get("/api/getRank/:word",                    rankController.getRankByWord)
     
 router.get('/', (req, res) => {
     res.send('404 . Not Found!')
