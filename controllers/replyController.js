@@ -12,9 +12,7 @@ const getReply = async function(req, res){
 }
 
 const insertReply = async function(req, res){
-    console.log("insertReply")
     try {
-
         const data = {
             keyword           : req.body.keyword,
             parentReplySeq    : req.body.parentReplySeq,
@@ -36,8 +34,6 @@ const deleteReply = async function(req, res){
 const updateReply = async function(req, res){
     console.log("updateReply")
 }
-
-
 
 module.exports = {
     getReply,

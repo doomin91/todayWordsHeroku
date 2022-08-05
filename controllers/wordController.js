@@ -9,8 +9,9 @@ const getWords = async function (req, res) {
             "startDate": req.params.startDate,
             "endDate": req.params.endDate
         }
-        let result = await wordModel.getWords(data);
-        res.status(200).json(result);
+        let result = await wordModel.getWords(data)
+        console.log(result)
+        res.status(200).json(result)
     } catch (e) {
         console.log(e)
         res.json(e)
@@ -23,7 +24,7 @@ const insertWord = async function (req, res) {
         let data = {
             cate: req.body.cate,
             name: req.body.name,
-            relatedWords: JSON.stringify(req.body.relatedWords),
+            relatedWords: req.body.relatedWords ? req.body.relatedWords : "",
             relatedNews: JSON.stringify(req.body.relatedNews),
             wordRank: req.body.wordRank,
             importance: req.body.importance,
