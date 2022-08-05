@@ -6,8 +6,8 @@ const Iconv = require("iconv-lite")
 const getWords = async function (req, res) {
     try {
         let data = {
-            "startDate": req.params.startDate,
-            "endDate": req.params.endDate
+            "startDate": `${req.params.startDate} 00:00:00`,
+            "endDate": `${req.params.endDate} 23:59:59`
         }
         let result = await wordModel.getWords(data)
         console.log(result)
@@ -24,7 +24,7 @@ const insertWord = async function (req, res) {
         let data = {
             cate: req.body.cate,
             name: req.body.name,
-            relatedWords: req.body.relatedWords ? req.body.relatedWords : "",
+            relatedWords: req.body.relatedWords ? trim(JSON.stringify(req.body.relatedWords)) : "",
             relatedNews: JSON.stringify(req.body.relatedNews),
             wordRank: req.body.wordRank,
             importance: req.body.importance,
