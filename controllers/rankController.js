@@ -20,33 +20,37 @@ const getRankByWord = async function (req, res) {
     }
 }
 
-const updateRank = async function () {
+const updateRank = async function (req, res) {
+    const startDate  = req.params.startDate
+    const result = await updateRankProc(startDate)
+    res.json(result)
+}
+
+const updateRankProc = async function (date) {
     try {
-        let now = moment(new Date()).format("YYYY-MM-DD")
-        // console.log(now)
-        let data = {
-            "startDate": `${now} 00:00:00`,
-            "endDate": `${now} 23:59:59`
+        const data = {
+            "startDate": `${date} 00:00:00`,
+            "endDate": `${date} 23:59:59`
         }
-        let result = await wordModel.getWordsTop100(data)
+        const result = await wordModel.getWordsTop100(data)
         if(result){
             result.forEach(async function(val, key){
                 let rankData = {
                     'RL_RANK'       : (key + 1),
                     'RL_WORD'       : val.WL_NAME,
-                    'RL_DATE'       : now
+                    'RL_DATE'       : date
                 }
-                let result2 = await rankModel.insertRank(rankData)
-                console.log(result2)
+                await rankModel.insertRank(rankData)
             })
         }
-        // console.log(result)
+        return result
     } catch (e) {
-        console.log(e)
+        return e
     }
 }
 
 module.exports = {
     getRankByWord,
     updateRank,
+    updateRankProc
 }

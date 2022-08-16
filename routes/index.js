@@ -517,6 +517,29 @@ const rankController    = require("../controllers/rankController")
      */
          router.get("/api/getRank/:word/:startDate/:endDate",                    rankController.getRankByWord)
     
+/**
+     * @swagger
+     *  /api/updateRank/{startDate}/:
+     *    get:
+     *      tags:
+     *      - rank
+     *      description: 랭킹 데이터 등록 (메뉴얼)
+     *      parameters:
+     *      - in: path
+     *        name: startDate
+     *        required: true
+     *        schema:
+     *          type: string
+     *          format: date
+     *          description: 등록 날짜
+     *      produces:
+     *      - application/json
+     *      responses:
+     *       200:
+     *        description: 성공
+     */
+ router.get("/api/updateRank/:startDate",                    rankController.updateRank)
+
 router.get('/', (req, res) => {
     res.send('404 . Not Found!')
   })
