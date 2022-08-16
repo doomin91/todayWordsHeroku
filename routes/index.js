@@ -484,7 +484,7 @@ const rankController    = require("../controllers/rankController")
 
     /**
      * @swagger
-     *  /api/getRank/{word}:
+     *  /api/getRank/{word}/{startDate}/{endDate}:
      *    get:
      *      tags:
      *      - rank
@@ -495,15 +495,27 @@ const rankController    = require("../controllers/rankController")
      *        required: true
      *        schema:
      *          type: string
+     *      - in: path
+     *        name: startDate
+     *        required: true
+     *        schema:
+     *          type: string
      *          format: date
      *          description: 시작 날짜
+     *      - in: path
+     *        name: endDate
+     *        required: true
+     *        schema:
+     *          type: string
+     *          format: date
+     *          description: 종료 날짜
      *      produces:
      *      - application/json
      *      responses:
      *       200:
      *        description: 모든 토픽 조회
      */
-         router.get("/api/getRank/:word",                    rankController.getRankByWord)
+         router.get("/api/getRank/:word/:startDate/:endDate",                    rankController.getRankByWord)
     
 router.get('/', (req, res) => {
     res.send('404 . Not Found!')

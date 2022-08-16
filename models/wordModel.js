@@ -10,6 +10,16 @@ exports.getWords = async function(data){
     return wordList;
 }
 
+exports.getWordsTop100 = async function(data){
+    let sql = `SELECT WL_SEQ, WL_CATE, WL_NAME, WL_RELATED_WORDS, WL_RELATED_NEWS, CAST(SUM(WL_IMPORTANCE) AS SIGNED INTEGER) WL_IMPORTANCE, WL_REG_DATE FROM TBL_WORD_LIST
+    WHERE WL_REG_DATE > '${data.startDate}' AND WL_REG_DATE <= '${data.endDate}' AND WL_DEL_YN = 'N'
+    GROUP BY WL_NAME
+    ORDER BY WL_IMPORTANCE DESC
+    LIMIT 100`
+    let [wordList, fields] = await db.query(sql)
+    return wordList;
+}
+
 exports.insertWord = async function(data){
     let sql = `INSERT INTO TBL_WORD_LIST (WL_CATE, WL_NAME, WL_RELATED_WORDS, WL_RELATED_NEWS, WL_IMPORTANCE) VALUES ('${data.cate}', '${data.name}', '${data.relatedWords}', '${data.relatedNews}', ${data.importance})`
 

@@ -135,7 +135,6 @@ const crollingNewsFromNaverNews = async function (){
         } catch (e){
             console.log(e)
         }
-
 }
 
 const updateRawData = async function (req, res) {
